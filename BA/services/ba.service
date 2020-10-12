@@ -1,0 +1,18 @@
+[Unit]
+Description=Bidder App
+AssertPathExists=/huda/ba
+
+
+[Service]
+WorkingDirectory=/huda/ba
+ExecStart=/huda/ba/ba
+
+
+ExecReload=/bin/kill -HUP $MAINPID
+LimitNOFILE=65536
+Restart=always
+RestartSec=5
+
+
+[Install]
+WantedBy=multi-user.target

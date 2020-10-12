@@ -1,0 +1,11 @@
+---
+
+# Create services
+- hosts: app_servers
+  remote_user: root
+  tasks:
+    - name: Send ba Service
+      copy:
+        src: /services/ba.service
+        dest: /etc/systemd/system
+

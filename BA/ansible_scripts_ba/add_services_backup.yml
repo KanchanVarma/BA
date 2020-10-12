@@ -1,0 +1,39 @@
+---
+
+# Create services
+- hosts: app_servers
+  remote_user: root
+  tasks:
+    - name: Send cms Service
+      copy:
+        src: services/cms.service
+        dest: /etc/systemd/system
+
+    - name: Send ba Service
+      copy:
+        src: services/ba.service
+        dest: /etc/systemd/system
+
+- hosts: ae
+  remote_user: root
+  tasks:
+    - name: Send ae Service
+      copy:
+        src: services/ae.service
+        dest: /etc/systemd/system
+
+- hosts: cms
+  remote_user: root
+  tasks:
+    - name: Send cms Service
+      copy:
+        src: services/cms.service
+        dest: /etc/systemd/system
+
+- hosts: gr
+  remote_user: root
+  tasks:
+    - name: Send grafana Service
+      copy:
+        src: services/grafana.service
+        dest: /etc/systemd/system

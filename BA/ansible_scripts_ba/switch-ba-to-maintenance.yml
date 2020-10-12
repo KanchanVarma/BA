@@ -1,0 +1,45 @@
+---
+
+- hosts: lb
+  tasks:
+    - name: stop nginx service
+      systemd:
+        name: nginx
+        enabled: yes
+        state: stopped
+
+# Switch to maintenance
+- hosts: lb
+  tasks:
+    - name: Create huda dir
+      file:
+        path: /huda
+        state: directory
+
+    - name: Create tmp dir
+      file:
+        path: /huda/tmp
+        state: directory
+
+    - name: Send ba-maintenance conf
+      copy:
+        src: config/lb/huda-ba-maintenance.conf
+        dest: /huda/tmp
+
+    - name: move ba-maintenance conf
+      copy:
+        src: /huda/tmp/huda-ba-maintenance.conf
+        dest: /etc/nginx/sites-enabled
+        remote_src: yes
+
+    - name: remove huda-ba default conf
+      file:
+        path: /etc/nginx/sites-enabled/huda-ba.conf
+        state: absent
+
+    - name: Start nginx service
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started
+        daemon_reload: yes

@@ -1,0 +1,44 @@
+#127.0.0.1	localhost
+
+#192.168.7.11	VMC2.nseit	VMC2
+#192.168.7.12	vmc2h1
+
+# huda-app {1-3} VMs
+#172.25.32.33	huda.uat.app.nseit
+
+# huda-cms
+#172.25.32.33    huda.uat.cms.nseit
+
+# auction_engine
+#172.25.32.33   huda.nseit.ae
+
+# document_store
+#172.25.32.35	huda.uat.ds.nseit	
+
+# database
+#172.25.32.35	huda.uat.db.nseit
+
+# redis
+#172.25.32.33	huda.uat.rs.nseit
+
+# load_balancer
+
+# Snorkel
+#<snorkelip>	huda-snorkel.nseit
+
+# grafana
+#<grafanaip>	huda-grafana.nseit
+
+# The following lines are desirable for IPv6 capable hosts
+#::1     localhost ip6-localhost ip6-loopback
+#ff02::1 ip6-allnodes
+#ff02::2 ip6-allrouters
+[app_servers]
+172.17.0.2
+
+[cms]
+172.17.0.2
+
+[ae]
+172.17.0.2
+

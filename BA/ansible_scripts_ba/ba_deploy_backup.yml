@@ -1,0 +1,105 @@
+---
+
+# Stop cms and bidder app services
+- hosts: app_servers
+  tasks:
+    - name: stop ba service
+      systemd:
+        name: ba
+        enabled: yes
+        state: stopped
+  
+# Deploy on app_servers
+- hosts: app_servers
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: create log directory
+      file:
+        path: /var/log/ba
+        state: directory
+        
+    - name: Create deployment directory
+      file:
+        path: /huda
+        state: directory
+
+    - name: Create tmp installation directory
+      file:
+        path: /huda/tmp
+        state: directory
+
+    - name: Create tmp ba installation directory
+      file:
+        path: /huda/tmp/ba
+        state: directory
+
+    - name: Create ba installation directory
+      file:
+        path: /huda/ba
+        state: directory
+
+    - name: Create ba static directory
+      file:
+        path: /huda/ba/static
+        state: directory
+
+    - name: Create ba static web directory
+      file:
+        path: /huda/ba/static/web
+        state: directory
+
+    - name: create ba conf directory
+      file:
+        path: /huda/ba/conf
+        state: directory
+
+    - name: Send ba conf
+      copy:
+        src: releases/ba/conf/app.conf
+        dest: /huda/ba/conf
+
+    - name: Send ba-tar
+      copy:
+        src: releases/ba/ba-{{ ba_vers }}.tar.gz
+        dest: /huda/tmp/ba
+
+    - name: Send ba-client-tar
+      copy:
+        src: releases/ba/ba-client-{{ ba_cl_vers }}.tar.gz
+        dest: /huda/tmp/ba
+
+    - name: Send ba web-client-tar
+      copy:
+        src: releases/ba/web-client-{{ web_cl_vers }}.tar.gz
+        dest: /huda/tmp/
+
+    - name: Unpack ba-client-tar
+      unarchive:
+        src: /huda/tmp/ba/ba-client-{{ ba_cl_vers }}.tar.gz
+        dest: /huda/ba/static
+        remote_src: yes
+
+    - name: Unpack ba web_client
+      unarchive:
+        src: /huda/tmp/web-client-{{ web_cl_vers }}.tar.gz
+        dest: /huda/ba/static/web
+        remote_src: yes
+
+    - name: Unpack ba-tar
+      unarchive:
+        src: /huda/tmp/ba/ba-{{ ba_vers }}.tar.gz
+        dest: /huda/ba/
+        remote_src: yes
+
+    - name: Add x flag to ba
+      file:
+        dest: /huda/ba/ba
+        mode: a+x
+
+    - name: Start bidder-app
+      systemd:
+        name: ba.service
+        enabled: yes
+        state: started
+        daemon_reload: yes

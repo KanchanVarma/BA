@@ -1,0 +1,32 @@
+---
+
+- hosts: app_servers
+  tasks:
+    - name: stop ba
+      systemd:
+        name: ba
+        enabled: yes
+        state: stopped
+
+- hosts: ae
+  tasks:
+    - name: stop ae
+      systemd:
+        name: ae
+        enabled: yes
+        state: stopped
+
+- hosts: cms
+  tasks:
+    - name: stop cms
+      systemd:
+        name: cms
+        enabled: yes
+        state: stopped
+        
+- hosts: app_servers ae cms
+  tasks:
+    - name: clean /huda
+      file:
+        path: /huda
+        state: absent

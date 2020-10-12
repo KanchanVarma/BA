@@ -1,0 +1,59 @@
+appname = app
+httpport = 8083
+runmode = dev
+
+sql.host = database-1-huda.cek5td0iy7g7.ap-south-1.rds.amazonaws.com
+sql.user = postgres
+sql.password = postgres
+sql.dbname = huda_backup
+sql.sslmode = disable
+sql.port = 5432
+sql.maxconn = 100
+sql.idleconn = 100
+sql.debug = false
+
+email.name = HSVP
+email.from = noreply@vfirst.com
+email.host = smtp.strmailer4.in
+email.port = 587
+email.username = _user25lhj7int7q8jg7_101
+email.password = b5fc15b4692576b93eb8f0728dba9f2b
+
+sms.body = http://www.myvaluefirst.com/smpp/sendsms?username=nseithttp2&password=nseit09k&to=%s&from=TMBIDX&text=%s&dlr-mask=19&dlr-url
+
+client.bidderapp = /huda/ba/static/
+client.auctionfloor = /huda/ba/static/web
+
+payment.private = /releases/conf/private.key
+payment.public = /releases/conf/public.pub
+payment.vendorpublic = /releases/conf/vendor.pub
+payment.walletcode = WT-1121
+payment.return = http://hsvp.bidx.in/web/payment/return
+payment.cancel = http://hsvp.bidx.in/web/payment/cancel
+payment.redirectsuccess = /app/payment/success
+payment.redirectfailure = /app/payment/failure
+payment.prefix = HUDAUAT
+payment.url = https://demo.b2biz.co.in
+
+
+path.upload = static/uploads
+websocket.host = 10.0.0.126:8086
+
+session.provider = redis
+session.config = 10.0.0.129:6379,100,Msvcrpto619C
+session.timeout = 3600
+
+redis.addr = 10.0.0.129:6379
+redis.password = Msvcrpto619C
+redis.db = 0
+
+minio.protocol = http://
+minio.endpoint = huda-load-balancer-d29cf1b234e22dc7.elb.ap-south-1.amazonaws.com:9000
+minio.accesskey = aaa
+minio.secretkey = deadbeef
+minio.babucket = ba-documents
+minio.cmsbucket = cms-documents
+minio.replace = huda-load-balancer-d29cf1b234e22dc7.elb.ap-south-1.amazonaws.com:9000
+
+logs.path = /var/log/ba/
+logs.maxdays = 60
